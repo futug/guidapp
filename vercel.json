@@ -1,0 +1,9 @@
+{
+    "routes": [
+        {
+            "src": "/api/GetXLabEquipmentInfo",
+            "dest": "https://testapi.cenergo.by/api/XLabEquipmentPublic/GetXLabEquipmentInfo",
+            "methods": ["GET", "POST"]
+        }
+    ]
+}
