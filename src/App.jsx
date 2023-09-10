@@ -21,8 +21,7 @@ function App() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`/api/GetXLabEquipmentInfo(id=${guide})`);
-
+            const response = await fetch(`https://testapi.cenergo.by/api/XLabEquipmentPublic/GetXLabEquipmentInfo(id=${guide})`);
             if (response.ok) {
                 const responseData = await response.json();
                 setData(responseData);
@@ -42,8 +41,6 @@ function App() {
         }
     }, [isValid]);
 
-    console.log(data ? data : "No data");
-
     return (
         <>
             <input type="text" value={guide} onChange={handleInputChange} />
@@ -52,29 +49,7 @@ function App() {
             {data && (
                 <div>
                     <h2>Data:</h2>
-                    <p>
-                        {" "}
-                        Вид оборудования
-                        <span>{data?.catalogOfEquipmentItem.kindOfEquipmentTitle}</span>
-                    </p>
-                    <p>
-                        Наименование оборудования <span>{data?.catalogOfEquipmentItem.title}</span>
-                    </p>
-
-                    <img src={`data:image/jpeg;base64,${data?.catalogOfEquipmentItem.equipmentPhoto}`} alt="Image" />
-
-                    <p>
-                        Заводской номер<span>{data?.serialNum}</span>
-                    </p>
-                    <p>
-                        Инвентарный номер<span>{data?.inventarNum}</span>
-                    </p>
-                    <p>
-                        Местонахождение<span>{data?.placeItem.placeTitle}</span>
-                    </p>
-                    <p>
-                        Статус<span>{data?.statusTitle}</span>
-                    </p>
+                    <pre>{JSON.stringify(data, null, 2)}</pre>
                 </div>
             )}
         </>
