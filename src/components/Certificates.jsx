@@ -107,7 +107,7 @@ const Certificates = ({ metroData }) => {
                 <button className="equip__certificates-more" disabled={shownMetroData >= metroData.length} onClick={showMore}>
                     Показать еще
                 </button>
-                <div className="pagination">{generatePageButtons()}</div>
+                <div className="pagination__block">{generatePageButtons()}</div>
             </div>
         </div>
     );

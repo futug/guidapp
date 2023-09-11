@@ -9,6 +9,7 @@ function App() {
     const [data, setData] = useState(null);
     const [metroData, setMetroData] = useState(null);
     const [chosenTab, setChosenTab] = useState("Описание");
+    const [loading, setLoading] = useState(false);
 
     // Функция для валидации GUID
     const validateGUID = (guid) => {
@@ -16,7 +17,9 @@ function App() {
         return guidPattern.test(guid);
     };
     const [guidIsValid, setGuidIsValid] = useState(validateGUID(guid));
+
     const fetchData = async () => {
+        setLoading(true);
         try {
             const response = await fetch(`https://testapi.cenergo.by/api/XLabEquipmentPublic/GetXLabEquipmentInfo(id=${guid})`);
             if (response.ok) {
@@ -27,10 +30,13 @@ function App() {
             }
         } catch (error) {
             console.error("Fetch Error:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
     const fetchMetroData = async () => {
+        setLoading(true);
         try {
             const response = await fetch(`https://testapi.cenergo.by/api/XLabEquipmentPublic/GetXLabEquipmentMetrologicInfo(id=${guid})`);
             if (response.ok) {
@@ -41,6 +47,8 @@ function App() {
             }
         } catch (error) {
             console.error("Fetch Error:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -55,6 +63,14 @@ function App() {
 
     console.log(chosenTab);
 
+    if (loading) {
+        return (
+            <>
+                <p>Загружаем информацию...</p>
+            </>
+        );
+    }
+
     if (!guidIsValid) {
         return (
             <>
@@ -62,6 +78,7 @@ function App() {
             </>
         );
     }
+
     return (
         <>
             <div className="equip__card">
