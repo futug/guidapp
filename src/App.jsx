@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { useLocation } from "react-router-dom";
+import Certificates from "./components/Certificates";
 
 function App() {
     const location = useLocation();
@@ -51,22 +52,6 @@ function App() {
             setData(null);
         }
     }, [guidIsValid]);
-
-    function formatDate(date) {
-        if (date) {
-            const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-            const formattedDate = new Date(date).toLocaleDateString("ru-RU", options);
-            return formattedDate;
-        }
-        return "";
-    }
-
-    function isExpired(date) {
-        if (date) {
-            return new Date(date) < new Date();
-        }
-        return false;
-    }
 
     console.log(chosenTab);
 
@@ -130,28 +115,7 @@ function App() {
                             </div>
                         </>
                     ) : (
-                        <div className="equip__certificates">
-                            {metroData?.map((metro) => (
-                                <div key={metro.id}>
-                                    <p>{metro.metrologicDocumentTitle}</p>
-                                    <p>{metro.metrologicDocumentNum}</p>
-                                    <p>
-                                        {metro.metrologicDate && metro.nextMetrologicDate ? (
-                                            <span>
-                                                с {formatDate(metro.metrologicDate)} по {formatDate(metro.nextMetrologicDate)}
-                                            </span>
-                                        ) : metro.metrologicDate ? (
-                                            <span>с {formatDate(metro.metrologicDate)}</span>
-                                        ) : metro.nextMetrologicDate ? (
-                                            <span>по {formatDate(metro.nextMetrologicDate)}</span>
-                                        ) : null}
-                                        {isExpired(metro.nextMetrologicDate) && <span> - Срок истек</span>}
-                                    </p>
-                                    <p>{metro.metrologicOrganisationTitle}</p>
-                                    <hr />
-                                </div>
-                            ))}
-                        </div>
+                        <Certificates metroData={metroData} />
                     )}
                 </div>
             </div>
