@@ -154,27 +154,29 @@
     .cerificate__footer {
         margin-top: 30px;
         width: 100%;
-        flex-direction: column;
+        flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
     }
 }
 
+.pagination__block {
+    display: flex;
+}
 .pagination {
     border: none;
     background-color: transparent;
-    font-weight: bold;
+    font-weight: 500;
     cursor: pointer;
-    flex-wrap: wrap;
+
     color: #000;
-    width: 25px;
-    height: 25px;
+    display: block;
 }
 
 .pagination__active {
-    background-color: #6750a4;
     border: none;
-    border-radius: 50%;
-    color: #fff;
+    font-weight: 800;
+    background-color: transparent;
+    color: #6750a4;
     font-weight: bold;
 }
