@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { useLocation } from "react-router-dom";
 import Certificates from "./components/Certificates";
+import Skeleton from "./components/Skeleton";
 
 function App() {
     const location = useLocation();
@@ -11,6 +12,12 @@ function App() {
     const [chosenTab, setChosenTab] = useState("Описание");
     const [loading, setLoading] = useState(false);
     const responceId = data?.catalogOfEquipmentItem.id;
+
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    };
 
     console.log(responceId);
 
@@ -115,12 +122,20 @@ function App() {
                 <div className="equip__body">
                     {chosenTab === "Описание" ? (
                         <>
-                            <div className="equip__photo">
-                                <img
-                                    src={`data:image/jpeg;base64,${data?.catalogOfEquipmentItem.equipmentPhoto}`}
-                                    alt="equipment photo"
-                                    className="equip__image"
-                                />
+                            <div className="equip__photo" style={imageLoaded ? {} : { width: "600px", height: "600px" }}>
+                                {loading ? (
+                                    <Skeleton />
+                                ) : (
+                                    <>
+                                        {!imageLoaded && <Skeleton />}
+                                        <img
+                                            src={`data:image/jpeg;base64,${data?.catalogOfEquipmentItem.equipmentPhoto}`}
+                                            alt="equipment photo"
+                                            className={`equip__image ${!imageLoaded ? "hidden" : ""}`}
+                                            onLoad={handleImageLoad}
+                                        />
+                                    </>
+                                )}
                             </div>
                             <div className="equip__descr">
                                 <p className="equip__descr-row">
