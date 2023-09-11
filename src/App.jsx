@@ -10,6 +10,9 @@ function App() {
     const [metroData, setMetroData] = useState(null);
     const [chosenTab, setChosenTab] = useState("Описание");
     const [loading, setLoading] = useState(false);
+    const responceId = data?.catalogOfEquipmentItem.id;
+
+    console.log(responceId);
 
     // Функция для валидации GUID
     const validateGUID = (guid) => {
@@ -55,13 +58,24 @@ function App() {
     useEffect(() => {
         if (guidIsValid) {
             fetchData();
-            fetchMetroData();
         } else {
             setData(null);
         }
     }, [guidIsValid]);
 
-    console.log(chosenTab);
+    useEffect(() => {
+        if (responceId !== 0) {
+            fetchMetroData();
+        }
+    }, [responceId]);
+
+    if (responceId === 0) {
+        return (
+            <>
+                <p>GUID не найден</p>
+            </>
+        );
+    }
 
     if (loading) {
         return (

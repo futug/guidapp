@@ -8,8 +8,6 @@ const Certificates = ({ metroData }) => {
 
     const itemsPerPage = 5;
 
-    console.log(currentPage);
-
     const sliceInc = () => {
         setSliceStart(sliceStart + 5);
     };
@@ -18,7 +16,6 @@ const Certificates = ({ metroData }) => {
         if (shownMetroData < metroData.length) {
             setShownMetroData(shownMetroData + 5);
             sliceInc();
-            console.log(sliceStart);
             setCurrentPage(currentPage + 1);
         } else {
             setShownMetroData(5);
@@ -63,8 +60,6 @@ const Certificates = ({ metroData }) => {
 
         return pageButtons;
     };
-
-    console.log(sliceStart);
 
     return (
         <div className="equip__certificates">
