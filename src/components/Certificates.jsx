@@ -5,6 +5,9 @@ const Certificates = ({ metroData }) => {
     const [shownMetroData, setShownMetroData] = useState(5);
     const [sliceStart, setSliceStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
+    const [filterExpired, setFilterExpired] = useState(false);
+
+    const filteredMetroData = filterExpired ? metroData?.filter((metro) => !isExpired(metro.nextMetrologicDate)) : metroData;
 
     const itemsPerPage = 5;
 
@@ -39,7 +42,7 @@ const Certificates = ({ metroData }) => {
     }
 
     const generatePageButtons = () => {
-        const totalPages = Math.ceil((metroData?.length || 0) / itemsPerPage);
+        const totalPages = Math.ceil((filteredMetroData?.length || 0) / itemsPerPage);
         const pageButtons = [];
 
         for (let i = 1; i <= totalPages; i++) {
@@ -63,7 +66,13 @@ const Certificates = ({ metroData }) => {
 
     return (
         <div className="equip__certificates">
-            {metroData?.slice(sliceStart, shownMetroData).map((metro) => (
+            <label htmlFor="certificates__filter" className="certificates__filter">
+                Только действующие
+                <input type="checkbox" id="certificates__filter" checked={filterExpired} onChange={() => setFilterExpired(!filterExpired)} />
+                <span className="checkbox"></span>
+            </label>
+            <hr />
+            {filteredMetroData?.slice(sliceStart, shownMetroData).map((metro) => (
                 <div key={metro.id}>
                     <p className="certificate__row">
                         <span className="certificate__title">Документ:</span>

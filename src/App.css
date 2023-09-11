@@ -180,3 +180,43 @@
     color: #6750a4;
     font-weight: bold;
 }
+
+.certificates__filter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.certificates__filter > input {
+    appearance: none;
+    visibility: hidden;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    border: 2px solid #49454f;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.checkbox::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url("../src/assets/checked-ico.svg") no-repeat center/12px 9px, #6750a4;
+    transform: scale(0);
+    transition: 0.3s all ease-in-out;
+}
+
+.certificates__filter > input:checked + .checkbox {
+    border-color: #6750a4;
+}
+
+.certificates__filter > input:checked + .checkbox::before {
+    transform: scale(1);
+}
