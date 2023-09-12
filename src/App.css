@@ -9,9 +9,8 @@
     min-height: 100vh;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 575px) {
     #root {
-        /* width: 100%; */
         padding: 0;
     }
 }
@@ -31,37 +30,23 @@
 .tabs {
     display: flex;
     gap: 30px;
-    margin-top: 30px;
 }
 
 .tab-item {
-    font-weight: medium;
     cursor: pointer;
-
+    margin-top: 30px;
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;
-    text-align: center;
     letter-spacing: 0.1px;
     color: #49454f;
+    width: fit-content;
 }
 
 .active {
     border-bottom: 2px solid #6750a4;
     color: #000;
 }
-
-/* .tab-item:after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: black;
-} */
-/* .equip__devider {
-    border: 1px solid #cac4d0;
-    margin: 0;
-} */
 
 .equip__photo {
     max-width: 600px;
@@ -187,6 +172,7 @@
     gap: 5px;
     width: fit-content;
     cursor: pointer;
+    margin-top: 30px;
 }
 
 .certificates__filter > input {

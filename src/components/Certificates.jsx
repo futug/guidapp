@@ -9,8 +9,6 @@ const Certificates = ({ metroData }) => {
 
     const filteredMetroData = filterExpired ? metroData?.filter((metro) => !isExpired(metro.nextMetrologicDate)) : metroData;
 
-    const itemsPerPage = 5;
-
     const sliceInc = () => {
         setSliceStart(sliceStart + 5);
     };
@@ -19,7 +17,6 @@ const Certificates = ({ metroData }) => {
         if (shownMetroData < metroData.length) {
             setShownMetroData(shownMetroData + 5);
             sliceInc();
-            setCurrentPage(currentPage + 1);
         } else {
             setShownMetroData(5);
             setSliceStart(0);
@@ -41,28 +38,7 @@ const Certificates = ({ metroData }) => {
         return false;
     }
 
-    const generatePageButtons = () => {
-        const totalPages = Math.ceil((filteredMetroData?.length || 0) / itemsPerPage);
-        const pageButtons = [];
-
-        for (let i = 1; i <= totalPages; i++) {
-            pageButtons.push(
-                <button
-                    key={i}
-                    onClick={() => {
-                        setCurrentPage(i);
-                        setSliceStart((i - 1) * itemsPerPage);
-                        setShownMetroData(i * itemsPerPage);
-                    }}
-                    className={i === currentPage ? "pagination__active" : "pagination"}
-                >
-                    {i}
-                </button>
-            );
-        }
-
-        return pageButtons;
-    };
+    console.log(metroData);
 
     return (
         <div className="equip__certificates">
@@ -72,11 +48,10 @@ const Certificates = ({ metroData }) => {
                 <span className="checkbox"></span>
             </label>
             <hr />
-            {filteredMetroData?.slice(sliceStart, shownMetroData).map((metro) => (
+            {filteredMetroData?.slice(0, shownMetroData).map((metro) => (
                 <div key={metro.id}>
                     <p className="certificate__row">
-                        <span className="certificate__title">Документ:</span>
-                        {metro.metrologicDocumentTitle}
+                        <span className="certificate__title">{metro.metrologicDocumentTitle}</span>
                     </p>
                     <p className="certificate__row">
                         <span className="certificate__title">Номер документа:</span>
@@ -86,7 +61,7 @@ const Certificates = ({ metroData }) => {
                         <span className="certificate__title">Срок действия:</span>
                         {metro.metrologicDate && metro.nextMetrologicDate ? (
                             <span>
-                                с {formatDate(metro.metrologicDate)} по {formatDate(metro.nextMetrologicDate)}
+                                с {formatDate(metro.metrologicDate)} по {formatDate(metro?.nextMetrologicDate)}
                             </span>
                         ) : metro.metrologicDate ? (
                             <span>с {formatDate(metro.metrologicDate)}</span>
@@ -95,7 +70,6 @@ const Certificates = ({ metroData }) => {
                         ) : null}
                         {isExpired(metro.nextMetrologicDate) && (
                             <span>
-                                {" "}
                                 <span className="certificate__expired">Срок истек</span>
                             </span>
                         )}
@@ -108,10 +82,9 @@ const Certificates = ({ metroData }) => {
                 </div>
             ))}
             <div className="cerificate__footer">
-                <button className="equip__certificates-more" disabled={shownMetroData >= metroData.length} onClick={showMore}>
-                    Показать еще
+                <button className="equip__certificates-more" onClick={showMore}>
+                    {shownMetroData < metroData?.length ? "Показать еще" : "Скрыть"}
                 </button>
-                <div className="pagination__block">{generatePageButtons()}</div>
             </div>
         </div>
     );

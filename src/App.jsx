@@ -9,7 +9,7 @@ function App() {
     const guid = new URLSearchParams(location.search).get("guid");
     const [data, setData] = useState(null);
     const [metroData, setMetroData] = useState(null);
-    const [chosenTab, setChosenTab] = useState("Описание");
+    // const [chosenTab, setChosenTab] = useState("Описание");
     const [loading, setLoading] = useState(false);
     const responceId = data?.catalogOfEquipmentItem.id;
 
@@ -105,64 +105,53 @@ function App() {
             <div className="equip__card">
                 <div className="equip__card-header">
                     <h1>{data?.catalogOfEquipmentItem.title}</h1>
-                    <p className="equip__guid">
-                        <span>GUID:&nbsp;</span>
-                        {guid}
-                    </p>
+                    <p className="equip__guid">{data?.catalogOfEquipmentItem.kindOfEquipmentTitle}</p>
                     <div className="tabs">
-                        <div onClick={() => setChosenTab("Описание")} className={`tab-item ${chosenTab === "Описание" ? "active" : ""}`}>
-                            Описание
-                        </div>
-                        <div onClick={() => setChosenTab("Сертификаты")} className={`tab-item ${chosenTab === "Сертификаты" ? "active" : ""}`}>
+                        <div className="tab-item active">Описание</div>
+                        {/* <div onClick={() => setChosenTab("Сертификаты")} className={`tab-item ${chosenTab === "Сертификаты" ? "active" : ""}`}>
                             Сертификаты
-                        </div>
+                        </div> */}
                     </div>
                     <div className="equip__devider"></div>
                 </div>
                 <div className="equip__body">
-                    {chosenTab === "Описание" ? (
-                        <>
-                            <div className="equip__photo" style={imageLoaded ? {} : { width: "600px", height: "600px" }}>
-                                {loading ? (
-                                    <Skeleton />
-                                ) : (
-                                    <>
-                                        {!imageLoaded && <Skeleton />}
-                                        <img
-                                            src={`data:image/jpeg;base64,${data?.catalogOfEquipmentItem.equipmentPhoto}`}
-                                            alt="equipment photo"
-                                            className={`equip__image ${!imageLoaded ? "hidden" : ""}`}
-                                            onLoad={handleImageLoad}
-                                        />
-                                    </>
-                                )}
-                            </div>
-                            <div className="equip__descr">
-                                <p className="equip__descr-row">
-                                    <span>Вид оборудования:</span>
-                                    {data?.catalogOfEquipmentItem.kindOfEquipmentTitle}
-                                </p>
-                                <p className="equip__descr-row">
-                                    <span>Заводской номер:</span>
-                                    {data?.serialNum || "не указан"}
-                                </p>
-                                <p className="equip__descr-row">
-                                    <span>Инвентарный номер:</span>
-                                    {data?.inventarNum || "не указан"}
-                                </p>
-                                <p className="equip__descr-row">
-                                    <span>Местонахождение:</span>
-                                    {data?.placeItem.placeTitle || "не указано"}
-                                </p>
-                                <p className="equip__descr-row">
-                                    <span>Статус:</span>
-                                    {data?.statusTitle}
-                                </p>
-                            </div>
-                        </>
-                    ) : (
+                    <>
+                        <div className="equip__photo" style={imageLoaded ? {} : { width: "600px", height: "600px" }}>
+                            {loading ? (
+                                <Skeleton />
+                            ) : (
+                                <>
+                                    {!imageLoaded && <Skeleton />}
+                                    <img
+                                        src={`data:image/jpeg;base64,${data?.catalogOfEquipmentItem.equipmentPhoto}`}
+                                        alt="equipment photo"
+                                        className={`equip__image ${!imageLoaded ? "hidden" : ""}`}
+                                        onLoad={handleImageLoad}
+                                    />
+                                </>
+                            )}
+                        </div>
+                        <div className="equip__descr">
+                            <p className="equip__descr-row">
+                                <span>Заводской номер:</span>
+                                {data?.serialNum || "не указан"}
+                            </p>
+                            <p className="equip__descr-row">
+                                <span>Инвентарный номер:</span>
+                                {data?.inventarNum || "не указан"}
+                            </p>
+                            <p className="equip__descr-row">
+                                <span>Местонахождение:</span>
+                                {data?.placeItem.placeTitle || "не указано"}
+                            </p>
+                            <p className="equip__descr-row">
+                                <span>Статус:</span>
+                                {data?.statusTitle}
+                            </p>
+                        </div>
+                        <h2 className="tab-item active">Метрологические оценки</h2>
                         <Certificates metroData={metroData} />
-                    )}
+                    </>
                 </div>
             </div>
         </>
