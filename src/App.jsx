@@ -146,7 +146,7 @@ function App() {
                                 {data?.statusTitle}
                             </p>
                         </div>
-                        <h2 className="tab-item active">Метрологические оценки</h2>
+                        <h2 className="tab-item active">Метрологическая оценка</h2>
                         <Certificates metroData={metroData} />
                     </>
                 </div>

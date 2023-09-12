@@ -22,14 +22,23 @@ const Certificates = ({ metroData }) => {
             setSliceStart(0);
         }
     };
-    function formatDate(date) {
-        if (date) {
-            const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-            const formattedDate = new Date(date).toLocaleDateString("ru-RU", options);
-            return formattedDate;
+
+    const formatDateRange = (startDate, endDate) => {
+        const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+        const startFormatted = startDate && startDate !== "0001-01-01T00:00:00+00:00" ? new Date(startDate).toLocaleDateString("ru-RU", options) : null;
+
+        const endFormatted = endDate && endDate !== "0001-01-01T00:00:00+00:00" ? new Date(endDate).toLocaleDateString("ru-RU", options) : null;
+
+        if (startFormatted && endFormatted) {
+            return `c ${startFormatted} по ${endFormatted}`;
+        } else if (startFormatted) {
+            return `c ${startFormatted}`;
+        } else if (endFormatted) {
+            return `по ${endFormatted}`;
+        } else {
+            return null;
         }
-        return "";
-    }
+    };
 
     function isExpired(date) {
         if (date) {
@@ -44,7 +53,7 @@ const Certificates = ({ metroData }) => {
     return (
         <div className="equip__certificates">
             <label htmlFor="certificates__filter" className="certificates__filter">
-                Все сертификаты
+                Показать все
                 <input type="checkbox" id="certificates__filter" checked={filterExpired} onChange={() => setFilterExpired(!filterExpired)} />
                 <span className="checkbox"></span>
             </label>
@@ -60,21 +69,23 @@ const Certificates = ({ metroData }) => {
                     </p>
                     <p className="certificate__row">
                         <span className="certificate__title">Срок действия:</span>
-                        {metro.metrologicDate && metro.nextMetrologicDate ? (
-                            <span>
-                                с {formatDate(metro.metrologicDate)} по {formatDate(metro?.nextMetrologicDate)}
-                            </span>
-                        ) : metro.metrologicDate ? (
-                            <span>с {formatDate(metro.metrologicDate)}</span>
-                        ) : metro.nextMetrologicDate ? (
-                            <span>по {formatDate(metro.nextMetrologicDate)}</span>
-                        ) : null}
+                        <span>{formatDateRange(metro.metrologicDate, metro.nextMetrologicDate)}</span>
                         {isExpired(metro.nextMetrologicDate) && (
                             <span>
                                 <span className="certificate__expired">Срок истек</span>
                             </span>
                         )}
                     </p>
+                    {metro?.needMonitor === true ? (
+                        <p className="certificate__row">
+                            <span className="certificate__title">Актуальное</span>
+                        </p>
+                    ) : (
+                        <p className="certificate__row">
+                            <span className="certificate__title">Не актуальное</span>
+                        </p>
+                    )}
+
                     <p className="certificate__row">
                         <span className="certificate__title">Исполнитель:</span>
                         {metro.metrologicOrganisationTitle ? metro.metrologicOrganisationTitle : "Не указан"}
