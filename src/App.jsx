@@ -108,15 +108,12 @@ function App() {
                     <p className="equip__guid">{data?.catalogOfEquipmentItem.kindOfEquipmentTitle}</p>
                     <div className="tabs">
                         <div className="tab-item active">Описание</div>
-                        {/* <div onClick={() => setChosenTab("Сертификаты")} className={`tab-item ${chosenTab === "Сертификаты" ? "active" : ""}`}>
-                            Сертификаты
-                        </div> */}
                     </div>
                     <div className="equip__devider"></div>
                 </div>
                 <div className="equip__body">
                     <>
-                        <div className="equip__photo" style={imageLoaded ? {} : { width: "600px", height: "600px" }}>
+                        <div className="equip__photo">
                             {loading ? (
                                 <Skeleton />
                             ) : (

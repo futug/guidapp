@@ -7,7 +7,7 @@ const Certificates = ({ metroData }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filterExpired, setFilterExpired] = useState(false);
 
-    const filteredMetroData = filterExpired ? metroData?.filter((metro) => !isExpired(metro.nextMetrologicDate)) : metroData;
+    const filteredMetroData = !filterExpired ? metroData?.filter((metro) => metro.needMonitor === true) : metroData;
 
     const sliceInc = () => {
         setSliceStart(sliceStart + 5);
@@ -39,11 +39,12 @@ const Certificates = ({ metroData }) => {
     }
 
     console.log(metroData);
+    console.log(filteredMetroData);
 
     return (
         <div className="equip__certificates">
             <label htmlFor="certificates__filter" className="certificates__filter">
-                Только действующие
+                Все сертификаты
                 <input type="checkbox" id="certificates__filter" checked={filterExpired} onChange={() => setFilterExpired(!filterExpired)} />
                 <span className="checkbox"></span>
             </label>
@@ -82,9 +83,11 @@ const Certificates = ({ metroData }) => {
                 </div>
             ))}
             <div className="cerificate__footer">
-                <button className="equip__certificates-more" onClick={showMore}>
-                    {shownMetroData < metroData?.length ? "Показать еще" : "Скрыть"}
-                </button>
+                {filteredMetroData?.length > 5 && (
+                    <button className="equip__certificates-more" onClick={showMore}>
+                        {shownMetroData < metroData?.length ? "Показать еще" : "Скрыть"}
+                    </button>
+                )}
             </div>
         </div>
     );
