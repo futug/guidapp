@@ -1,9 +1,9 @@
 #root {
-    /* max-width: 600px; */
+    max-width: 1170px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: fit-content;
+    /* width: fit-content; */
     margin: 0 auto;
     padding: 0 2rem;
     min-height: 100vh;
@@ -25,6 +25,7 @@
     padding: 10px;
     gap: 10px;
     font-family: "Roboto";
+    margin: 0 auto;
 }
 
 .tabs {
