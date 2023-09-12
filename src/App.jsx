@@ -79,7 +79,7 @@ function App() {
     if (responceId === 0) {
         return (
             <>
-                <p>GUID не найден</p>
+                <p className="preload-title">GUID не найден</p>
             </>
         );
     }
@@ -87,7 +87,7 @@ function App() {
     if (loading) {
         return (
             <>
-                <p>Загружаем информацию...</p>
+                <p className="preload-title">Загружаем информацию...</p>
             </>
         );
     }
@@ -95,7 +95,7 @@ function App() {
     if (!guidIsValid) {
         return (
             <>
-                <p>Неправильный GUID, попробуйте снова</p>
+                <p className="preload-title">Неправильный GUID, попробуйте снова</p>
             </>
         );
     }
