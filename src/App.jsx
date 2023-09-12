@@ -9,7 +9,6 @@ function App() {
     const guid = new URLSearchParams(location.search).get("guid");
     const [data, setData] = useState(null);
     const [metroData, setMetroData] = useState(null);
-    // const [chosenTab, setChosenTab] = useState("Описание");
     const [loading, setLoading] = useState(false);
     const responceId = data?.catalogOfEquipmentItem.id;
 
@@ -18,8 +17,6 @@ function App() {
     const handleImageLoad = () => {
         setImageLoaded(true);
     };
-
-    console.log(responceId);
 
     // Функция для валидации GUID
     const validateGUID = (guid) => {
@@ -113,18 +110,22 @@ function App() {
                 </div>
                 <div className="equip__body">
                     <>
-                        <div className="equip__photo">
+                        <div className="equip__photo" style={imageLoaded ? {} : { aspectRatio: "1 / 1" }}>
                             {loading ? (
                                 <Skeleton />
                             ) : (
                                 <>
                                     {!imageLoaded && <Skeleton />}
-                                    <img
-                                        src={`data:image/jpeg;base64,${data?.catalogOfEquipmentItem.equipmentPhoto}`}
-                                        alt="equipment photo"
-                                        className={`equip__image ${!imageLoaded ? "hidden" : ""}`}
-                                        onLoad={handleImageLoad}
-                                    />
+                                    {data ? (
+                                        <img
+                                            src={`data:image/jpeg;base64,${data?.catalogOfEquipmentItem.equipmentPhoto}`}
+                                            alt="equipment photo"
+                                            className={`equip__image ${!imageLoaded ? "hidden" : ""}`}
+                                            onLoad={handleImageLoad}
+                                        />
+                                    ) : (
+                                        <Skeleton />
+                                    )}
                                 </>
                             )}
                         </div>

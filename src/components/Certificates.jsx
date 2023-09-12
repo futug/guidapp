@@ -47,9 +47,6 @@ const Certificates = ({ metroData }) => {
         return false;
     }
 
-    console.log(metroData);
-    console.log(filteredMetroData);
-
     return (
         <div className="equip__certificates">
             <label htmlFor="certificates__filter" className="certificates__filter">
@@ -76,15 +73,6 @@ const Certificates = ({ metroData }) => {
                             </span>
                         )}
                     </p>
-                    {metro?.needMonitor === true ? (
-                        <p className="certificate__row">
-                            <span className="certificate__title">Актуальное</span>
-                        </p>
-                    ) : (
-                        <p className="certificate__row">
-                            <span className="certificate__title">Не актуальное</span>
-                        </p>
-                    )}
 
                     <p className="certificate__row">
                         <span className="certificate__title">Исполнитель:</span>
