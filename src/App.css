@@ -26,6 +26,7 @@
     gap: 10px;
     font-family: "Roboto";
     margin: 0 auto;
+    width: fit-content;
 }
 
 .tabs {
@@ -61,7 +62,7 @@
 }
 
 .equip__certificates {
-    width: 600px;
+    max-width: 600px;
 }
 
 @media (max-width: 425px) {
